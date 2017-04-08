@@ -1,5 +1,7 @@
-package com.slashandpair.desktop.service.security;
+package com.slashandpair.desktop.service;
 
+import com.slashandpair.exchange.PairingToken;
+import com.slashandpair.exchange.TokenService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;

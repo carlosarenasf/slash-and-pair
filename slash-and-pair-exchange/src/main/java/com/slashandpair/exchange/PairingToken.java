@@ -1,4 +1,4 @@
-package com.slashandpair.desktop.service.security;
+package com.slashandpair.exchange;
 
 import lombok.Data;
 

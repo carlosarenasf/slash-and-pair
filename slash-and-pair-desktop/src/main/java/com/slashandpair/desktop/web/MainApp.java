@@ -1,7 +1,7 @@
 package com.slashandpair.desktop.web;
 
-import com.slashandpair.desktop.service.security.PairingToken;
-import com.slashandpair.desktop.service.security.SecurityService;
+import com.slashandpair.desktop.service.SecurityService;
+import com.slashandpair.exchange.PairingToken;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MainApp {
 
     private final SecurityService securityService;
-
-
 
     @GetMapping("/desktop")
     public String getIndex(Model model) {

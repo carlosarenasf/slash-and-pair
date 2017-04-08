@@ -1,4 +1,4 @@
-package com.slashandpair.desktop.service.security;
+package com.slashandpair.exchange;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -28,6 +28,7 @@ public class TokenService {
             return Optional.empty();
         }
     }
+
     public Optional<PairingToken> findPairingTokenByUserId(String userId) {
         Map<Object, Object> map = redisTemplate.opsForHash().entries(USER_ID_NAMESPACE + userId);
         if (map != null) {
@@ -45,6 +46,7 @@ public class TokenService {
     private void storePairingTokenByTokenKey(PairingToken pairingToken) {
         redisTemplate.opsForHash().putAll(TOKEN_NAMESPACE + pairingToken.getToken(), pairingToken.toMap());
     }
+
     private void storePairingTokenByUserIdKey(PairingToken pairingToken) {
         redisTemplate.opsForHash().putAll(USER_ID_NAMESPACE + pairingToken.getUserId(), pairingToken.toMap());
     }
