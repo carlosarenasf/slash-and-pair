@@ -1,5 +1,6 @@
 package com.slashandpair.desktop.service.security;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,7 +16,10 @@ import java.util.Random;
  */
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class SecurityService {
+
+    private final TokenService tokenService;
 
     public String generateNewUserId() {
         return RandomStringUtils.randomAlphanumeric(32);
@@ -45,14 +49,9 @@ public class SecurityService {
 
 
         String userId = authentication.getName();
-        PairingToken pairingToken = new PairingToken(userId, String.valueOf(generatedInt));
-        storeToken(pairingToken);
+        PairingToken pairingToken = PairingToken.of(userId, String.valueOf(generatedInt));
+        tokenService.storePairingToken(pairingToken);
         return pairingToken;
-    }
-
-    private void storeToken(PairingToken pairingToken) {
-        // TODO
-
     }
 
 }
