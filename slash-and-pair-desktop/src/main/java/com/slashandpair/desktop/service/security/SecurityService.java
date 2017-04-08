@@ -26,11 +26,10 @@ public class SecurityService {
         SecurityContext context = SecurityContextHolder.getContext();
 
         Authentication authentication = context.getAuthentication();
-        if (authentication == null || !authentication.isAuthenticated()) {
+        if (authentication == null || "anonymousUser".equals(authentication.getName())) {
             String newUserName = generateNewUserId();
             log.info("New user authenticated with id {}", newUserName);
             authentication = new UsernamePasswordAuthenticationToken(newUserName, null, null);
-            authentication.setAuthenticated(true);
             context.setAuthentication(authentication);
         }
         return authentication;
