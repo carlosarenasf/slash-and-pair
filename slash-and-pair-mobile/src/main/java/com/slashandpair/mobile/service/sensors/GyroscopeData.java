@@ -1,4 +1,4 @@
-package hello;
+package com.slashandpair.mobile.service.sensors;
 
 public class GyroscopeData {
 	private String alpha;

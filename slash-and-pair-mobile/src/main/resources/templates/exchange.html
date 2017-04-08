@@ -8,17 +8,12 @@
     <script src="/webjars/jquery/jquery.min.js"></script>
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="/app.js"></script>
 </head>
 <body>
 
 <main>
-	<form class="form-inline" th:action="@{/synch}" method="post">
-	    <div class="form-group">
-	        <label for="connect">WebSocket connection:</label>
-            <input type="number" name="token" placeholder="****" min="0" max="9999" step="1"/>
-	        <button id="connect" class="btn btn-default" type="submit">Synch!</button>
-	    </div>
-	</form>
+
 </main>
 
 </body>

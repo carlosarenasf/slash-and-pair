@@ -1,7 +1,8 @@
 package com.slashandpair.mobile.config;
 
-import java.security.Principal;
-
+import com.slashandpair.mobile.service.security.SecurityService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
@@ -15,10 +16,7 @@ import org.springframework.web.socket.config.annotation.AbstractWebSocketMessage
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 
-import com.slashandpair.mobile.service.security.SecurityService;
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.security.Principal;
 
 //@Configuracion spring lo entiende ocmo que es una clase de configuracion 
 @Configuration
@@ -54,7 +52,7 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 
               if (StompCommand.CONNECT.equals(command)) {
                   if (accessor.getUser() == null) {
-                      Principal user = securityService.getAuthenticationOrCreateNewOne();
+                      Principal user = securityService.getAuthentication();
                       accessor.setUser(user);
                   }
               }
