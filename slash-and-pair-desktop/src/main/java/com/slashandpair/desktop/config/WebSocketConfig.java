@@ -31,8 +31,7 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 	//Este metodo sobreescribe el metodo predeterminado
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/topic","/queue");
-        config.setApplicationDestinationPrefixes("/app");
+        config.enableSimpleBroker("/user");
     }
     
     public void registerStompEndpoints(StompEndpointRegistry registry) {

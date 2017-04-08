@@ -22,7 +22,7 @@ public class TokenService {
 
     public Optional<PairingToken> findPairingTokenByToken(String token) {
         Map<Object, Object> map = redisTemplate.opsForHash().entries(TOKEN_NAMESPACE + token);
-        if (map != null) {
+        if (map != null && !map.isEmpty()) {
             return Optional.of(PairingToken.fromMap(map));
         } else {
             return Optional.empty();

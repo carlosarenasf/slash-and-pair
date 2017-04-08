@@ -1,8 +1,8 @@
 package com.slashandpair.mobile.web;
 
-import com.slashandpair.exchange.OutcomingExchangeService;
 import com.slashandpair.exchange.PairingToken;
 import com.slashandpair.exchange.TokenService;
+import com.slashandpair.mobile.service.OutcomingExchangeService;
 import com.slashandpair.mobile.service.security.SecurityService;
 import com.slashandpair.mobile.service.sensors.GyroscopeData;
 import lombok.RequiredArgsConstructor;

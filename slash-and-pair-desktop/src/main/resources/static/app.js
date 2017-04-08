@@ -20,7 +20,7 @@
         stompClient.connect({}, function (frame) {
             setConnected(true);
             console.log('Connected: ' + frame);
-            stompClient.subscribe('/desktop/mobileConnectionSuccess', function () {
+            stompClient.subscribe('/user/' + $("#userId").text() + '/desktop/mobileConnectionSuccess', function () {
                 alert("Mobile connected!");
             });
 
@@ -43,14 +43,9 @@
         $("#greetings").append("<tr><td>" + message + "</td></tr>");
     }
 
-    $(function () {
-        $("form").on('submit', function (e) {
-            e.preventDefault();
-        });
-        $( "#connect" ).click(function() { connect(); });
-        $( "#disconnect" ).click(function() { disconnect(); });
-        $( "#send" ).click(function() {alert("AAAh"); });
+    $(document).ready(function() {
+        connect();
+        console.log("connected socket");
     });
-
 })();
 
