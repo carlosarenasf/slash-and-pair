@@ -1,6 +1,6 @@
 package com.slashandpair.desktop.config;
 
-import com.slashandpair.desktop.service.security.SecurityService;
+import com.slashandpair.desktop.service.SecurityService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
