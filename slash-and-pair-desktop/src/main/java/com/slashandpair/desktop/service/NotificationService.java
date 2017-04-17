@@ -1,5 +1,6 @@
 package com.slashandpair.desktop.service;
 
+import com.slashandpair.datastructures.GyroscopeData;
 import com.slashandpair.exchange.StringContentExchange;
 
 /**
@@ -11,7 +12,7 @@ public interface NotificationService {
 
         this.template.convertAndSendToUser("/topic/greetings",new Greeting(text));
      */
-    void notifyNewData(String user, StringContentExchange data);
+    void notifyNewData(String data);
     void notifyMobileConnected(String user);
 
 }

@@ -22,19 +22,20 @@ import java.util.Random;
 public class SecurityService {
 
     private final TokenService tokenService;
-
+    
     public String generateNewUserId() {
         return RandomStringUtils.randomAlphanumeric(32);
     }
 
     public Authentication getAuthenticationOrCreateNewOne() {
-
+    	
         SecurityContext context = SecurityContextHolder.getContext();
 
         Authentication authentication = context.getAuthentication();
         if (authentication == null || "anonymousUser".equals(authentication.getName())) {
             String newUserName = generateNewUserId();
             log.info("New user authenticated with id {}", newUserName);
+            log.info("Doing getAuthenticationOrCreateNewOne newusername <<<<<<<<<<<<<<<<<< {}", newUserName);
             authentication = new UsernamePasswordAuthenticationToken(newUserName, null, null);
             context.setAuthentication(authentication);
         }

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class SecurityService {
 
-    public void authenticate(String userId) {
+    public Authentication authenticate(String userId) {
 
         SecurityContext context = SecurityContextHolder.getContext();
 
@@ -24,6 +24,7 @@ public class SecurityService {
             authentication = new UsernamePasswordAuthenticationToken(userId, null, null);
             context.setAuthentication(authentication);
         }
+        return authentication;
     }
 
     public Authentication getAuthentication() {

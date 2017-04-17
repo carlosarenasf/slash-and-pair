@@ -13,8 +13,26 @@
 <body>
 
 <main>
-
+	<button id ="someData" onclick="sendSomeDataMobile();"> push this button</button>
+<!--                 <button id="send" class="btn btn-default" type="submit">Send</button> -->
+<!-- 	<p>Page userId: </p> <p th:text="${cookie.userId}"></p> -->
 </main>
-
+<br/>
+<div id="main-content" class="container">
+    <h3 id="userId" th:text="${userId}"></h3>
+    <div class="row">
+        <div class="col-md-12">
+            <table id="conversation" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Greetings</th>
+                </tr>
+                </thead>
+                <tbody id="greetings">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 </body>
 </html>

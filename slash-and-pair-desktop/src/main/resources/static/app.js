@@ -1,4 +1,3 @@
-(function() {
 
     var stompClient = null;
 
@@ -20,12 +19,13 @@
         stompClient.connect({}, function (frame) {
             setConnected(true);
             console.log('Connected: ' + frame);
-            stompClient.subscribe('/user/' + $("#userId").text() + '/desktop/mobileConnectionSuccess', function () {
-                alert("Mobile connected!");
+            stompClient.subscribe('/user/' + $("#userId").text() + '/desktop/mobileConnectionSuccess', function (greeting) {
+                showGreeting(JSON.parse(greeting.body).content);
             });
 
             stompClient.subscribe('/desktop/receiveMobileData', function (greeting) {
-                showGreeting(JSON.parse(greeting.body).content);
+                //showGreeting(JSON.parse(greeting.body).content);
+                showGreeting(greeting.body);
             });
         });
     }
@@ -47,5 +47,4 @@
         connect();
         console.log("connected socket");
     });
-})();
 

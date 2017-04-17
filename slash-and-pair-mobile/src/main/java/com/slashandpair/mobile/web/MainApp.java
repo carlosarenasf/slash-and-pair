@@ -1,21 +1,33 @@
 package com.slashandpair.mobile.web;
 
-import com.slashandpair.exchange.PairingToken;
-import com.slashandpair.exchange.TokenService;
-import com.slashandpair.mobile.service.OutcomingExchangeService;
-import com.slashandpair.mobile.service.security.SecurityService;
-import com.slashandpair.mobile.service.sensors.GyroscopeData;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.security.Principal;
+import java.util.Optional;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.annotation.SendToUser;
+import org.springframework.security.core.context.SecurityContext;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.socket.WebSocketSession;
 
-import java.util.Optional;
+import com.slashandpair.exchange.PairingToken;
+import com.slashandpair.exchange.StringContentExchange;
+import com.slashandpair.exchange.TokenService;
+import com.slashandpair.mobile.service.OutcomingExchangeService;
+import com.slashandpair.mobile.service.security.SecurityService;
+
+import lombok.RequiredArgsConstructor;
+
 
 
 @Controller
@@ -26,8 +38,7 @@ public class MainApp {
     private final SecurityService securityService;
     private final TokenService tokenService;
     private final OutcomingExchangeService outcomingExchangeService;
-
-
+    
     @GetMapping("/mobile")
     public String getIndex() {
         return "index";
@@ -39,7 +50,9 @@ public class MainApp {
         if (pairingTokenOptional.isPresent()) {
             String userId = pairingTokenOptional.get().getUserId();
             securityService.authenticate(userId);
+            log.info("TokenInfor <<<<<<<<<<<<<<<< {}", pairingTokenOptional.toString());
             outcomingExchangeService.notifyMobilePaired(userId);
+            log.info("PostSynch <<<<<<<<<<<<<<<< {}", userId);
             return "redirect:/exchange";
         } else {
             return "redirect:/tokenError";
@@ -49,22 +62,22 @@ public class MainApp {
 
     @GetMapping("/exchange")
     public String getExchange(Model model) {
-        return "exchange";
+    	String userId = securityService.getAuthentication().getName();
+        model.addAttribute("userId", userId);
+    	log.info("Exchange userId <<<<<<<<<<<<<<<<<<<<<<<<<<<<< {}", userId);
+    	return "exchange";
     }
 
     @MessageMapping("/dataMobile")
 	@SendTo("/mobile/sendMobileData")
-	public void greeting(GyroscopeData message) throws Exception {;
-		log.info("Gyroscope mobile data: gyroscope{}", message.toString());
-	    
-	}
-	
-	@MessageMapping("/code")
-	@SendTo("/mobile/sendMobileData")
-	public void introduceCode(String code) throws Exception {
-		log.info("Code introduced from user for pairing code{}", code);
-	}
-	
-
+	public String greeting(String code, Principal principal) throws Exception {
+    	log.info("Getting some data from mobile <<<<<<<<<<<<<<<<<< {}", code.toString());
+    	log.info("Getting some data from principal can be? <<<<<<<<<<<<<<<<<< {}", principal);
+    	outcomingExchangeService.sendMobileContent(principal.getName(), code);
+    	//String userId = securityService.getAuthentication().getName();
+    	//, @CookieValue("userId") String userId
+    	//log.info("Getting some data from user id <<<<<<<<<<<<<<<<<< {}", userId);
+    	return new String("Que pasa código" + code);
+    }
 
 }
