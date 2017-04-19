@@ -12,3 +12,11 @@ body {
     -moz-border-radius: 5px;
     border-radius: 5px;
 }
+
+.centered{
+	text-align: center !important; 
+}
+
+.valuesOfGiros{
+	width:33%;
+}

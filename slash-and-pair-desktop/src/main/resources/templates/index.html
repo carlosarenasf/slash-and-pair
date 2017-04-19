@@ -13,18 +13,32 @@
 <body>
 
 <main>
-    <h1>Try It</h1>
-    <h2 th:text="${token}"></h2>
-    <h3 id="userId" th:text="${userId}"></h3>
-    
-            <div class="col-md-12">
+<div class="row">
+	<div class="col-sm-12">
+		<h1 class="centered" >This is your code!</h1>
+  		<h2 class="centered">Put it on localhost:8081/mobile and see results!</h2>
+  		    <h2 class="centered btn-success" style="font-size:3em; margin:10px 10px 10px 10px" th:text="${token}"></h2>
+    		<h3 hidden="true" id="userId" th:text="${userId}"></h3>
+	</div>
+
+</div>
+    		
+            <div id="connectedInformation" style="display:block" class="col-sm-12">
+            <h2>Gyroscope things!</h2>
             <table id="conversation" class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Greetings</th>
+                    <th class="valuesOfGiros">Alpha</th>
+                    <th class="valuesOfGiros">Beta</th>
+                    <th class="valuesOfGiros">Gamma</th>
                 </tr>
                 </thead>
                 <tbody id="greetings">
+                	<tr>
+				        <td class="valuesOfGiros"><text id="alpha">0</text></td>
+				        <td class="valuesOfGiros"><text id="betta">0</text></td>
+				        <td class="valuesOfGiros"><text id="gamma">0</text></td>
+			      	</tr>
                 </tbody>
             </table>
         </div>

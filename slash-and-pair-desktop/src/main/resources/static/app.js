@@ -10,7 +10,7 @@
         else {
             $("#conversation").hide();
         }
-        $("#greetings").html("");
+        //$("#greetings").html("");
     }
 
     function connect() {
@@ -25,7 +25,9 @@
 
             stompClient.subscribe('/desktop/receiveMobileData', function (greeting) {
                 //showGreeting(JSON.parse(greeting.body).content);
+                //$("connectedInformation").show();
                 showGreeting(greeting.body);
+                
             });
         });
     }
@@ -40,7 +42,12 @@
 
 
     function showGreeting(message) {
-        $("#greetings").append("<tr><td>" + message + "</td></tr>");
+        //$("#greetings").append("<tr><td>" + message + "</td></tr>");
+        var parse = message;
+		var json_obj = JSON.parse(parse);
+        $("#alpha").text(json_obj.alpha);
+        $("#betta").text(json_obj.beta);
+        $("#gamma").text(json_obj.gamma);
     }
 
     $(document).ready(function() {
