@@ -42,16 +42,15 @@ function gyroscope(){
 	{
 	    window.addEventListener("deviceorientation", function () 
 	    {
-//	        sendGyros(event.alpha, event.beta, event.gamma);
-//	    	sendName(event.alpha);
-	    	stompClient.send("/app/dataMobile", {}, JSON.stringify({'alpha': event.alpha, 'beta' : event.beta, 'gamma' : event.gamma}));
+	    	stompClient.send("/app/dataMobile/gyroscope", {}, JSON.stringify({'alpha': event.alpha, 'beta' : event.beta, 'gamma' : event.gamma}));
 	    }, true);
 	} 
 }
 
-//function sendGyros(alpha, beta, gamma){
-//	stompClient.send("/app/hello", {}, JSON.stringify({'name': alpha}));
-//}
+
+function sendClick(){
+	stompClient.send("/app/dataMobile/click", {}, JSON.stringify({'positionX': "1", 'positionY' : "2"}));
+}
 
 function showGreeting(message) {
     $("#greetings").append("<tr><td>" + message + "</td></tr>");
@@ -68,7 +67,8 @@ function sendSomeDataMobile() {
 $(document).ready(function() {
     connect();
     console.log("connected socket");
-    sendSomeDataMobile()
+    sendSomeDataMobile();
+    
 });
     
 
@@ -81,6 +81,7 @@ $(function () {
     $( "#connect" ).click(function() { connect(); });
     $( "#disconnect" ).click(function() { disconnect(); });
     $( "#send" ).click(function() { sendName($('#name').val()); });
+    $(".grey-area").click(function(){ sendClick(); });
     //gyroscope();
 });
 

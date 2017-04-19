@@ -38,9 +38,6 @@ public class MainApp {
 	@SendTo("/desktop/receiveMobileData")
 	public String greeting(String data) throws Exception {
     	log.info("Show me that data<<<<<<<<<<<<<<<<<< {}", data);
-    	//String userId = securityService.getAuthentication().getName();
-    	//, @CookieValue("userId") String userId
-    	//log.info("Getting some data from user id <<<<<<<<<<<<<<<<<< {}", userId);
     	return new String("Que pasa código" + data);
     }
     

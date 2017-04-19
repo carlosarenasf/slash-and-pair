@@ -1,10 +1,9 @@
 package com.slashandpair.mobile.service;
 
-import org.json.JSONObject;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
-import com.slashandpair.datastructures.GyroscopeData;
+import com.slashandpair.exchange.DataConvert;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,12 +31,8 @@ public class OutcomingExchangeService {
 
     public void sendMobileContent(String userId ,String data) {
     	log.info("OutcomingExchangeService sendMobileContent userId {}", userId);
-    	JSONObject jsonObj = new JSONObject(data);
-    	String alpha = String.valueOf(jsonObj.get("alpha"));
-    	String beta = String.valueOf(jsonObj.get("beta"));
-    	String gamma = String.valueOf(jsonObj.get("gamma"));
-    	String json = new GyroscopeData(userId,alpha,beta,gamma).toString();
-    	rabbitTemplate.convertAndSend("slash-and-pair-data", "newData", json);
+    	log.info("OutcomingExchangeService sendMobileContent data {}", data);
+    	rabbitTemplate.convertAndSend("slash-and-pair-data", "newData", DataConvert.mappingUserAndJson(userId, data));
     }
 
 }

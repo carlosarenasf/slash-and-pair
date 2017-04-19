@@ -3,30 +3,22 @@ package com.slashandpair.mobile.web;
 import java.security.Principal;
 import java.util.Optional;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.annotation.SendToUser;
-import org.springframework.security.core.context.SecurityContext;
-import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.socket.WebSocketSession;
 
+import com.slashandpair.datastructures.ClickData;
+import com.slashandpair.datastructures.GyroscopeData;
 import com.slashandpair.exchange.PairingToken;
-import com.slashandpair.exchange.StringContentExchange;
 import com.slashandpair.exchange.TokenService;
 import com.slashandpair.mobile.service.OutcomingExchangeService;
 import com.slashandpair.mobile.service.security.SecurityService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 
 
@@ -68,16 +60,20 @@ public class MainApp {
     	return "exchange";
     }
 
-    @MessageMapping("/dataMobile")
-	@SendTo("/mobile/sendMobileData")
-	public String greeting(String code, Principal principal) throws Exception {
-    	log.info("Getting some data from mobile <<<<<<<<<<<<<<<<<< {}", code.toString());
+    @MessageMapping("/dataMobile/gyroscope")
+	public void sendGyroscope(String gyrosJson, Principal principal) throws Exception {
+    	GyroscopeData gyros = new GyroscopeData(gyrosJson);
+    	log.info("Getting some data from mobile <<<<<<<<<<<<<<<<<< {}", gyros.toString());
     	log.info("Getting some data from principal can be? <<<<<<<<<<<<<<<<<< {}", principal);
-    	outcomingExchangeService.sendMobileContent(principal.getName(), code);
-    	//String userId = securityService.getAuthentication().getName();
-    	//, @CookieValue("userId") String userId
-    	//log.info("Getting some data from user id <<<<<<<<<<<<<<<<<< {}", userId);
-    	return new String("Que pasa código" + code);
+    	outcomingExchangeService.sendMobileContent(principal.getName(), gyros.convertDataInJson());
+    }
+    
+    @MessageMapping("/dataMobile/click")
+	public void sendClick(String clickJson, Principal principal) throws Exception {
+    	ClickData click = new ClickData(clickJson);
+    	log.info("Getting some data from mobile <<<<<<<<<<<<<<<<<< {}", click.toString());
+    	log.info("Getting some data from principal can be? <<<<<<<<<<<<<<<<<< {}", principal);
+    	outcomingExchangeService.sendMobileContent(principal.getName(), click.convertDataInJson());
     }
 
 }
