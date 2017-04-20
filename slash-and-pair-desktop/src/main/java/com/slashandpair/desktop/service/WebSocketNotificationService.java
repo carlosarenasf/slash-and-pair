@@ -51,7 +51,7 @@ public class WebSocketNotificationService implements NotificationService {
     	log.info("NotifyNewData 222 WebSocketNotificationService data <<<<<<<<<<<<<<<<<< {}", dataMap.getJson());
     	log.info("NotifyNewData 222 WebSocketNotificationService user principal <<<<<<<<<<<<<<<<<< {}", dataMap.getUserId());
     	
-        messagingTemplate.convertAndSendToUser((String) dataMap.getUserId(), WEB_SOCKET_CONNECTION_SUCCESS_DESTINATION, dataMap.getJson().toString());
-        messagingTemplate.convertAndSend( WEB_SOCKET_SEND_DATA_DESTINATION, dataMap.getJson().toString());
+        messagingTemplate.convertAndSendToUser(dataMap.getUserId().toString(), WEB_SOCKET_SEND_DATA_DESTINATION, dataMap.getJson().toString());
+//        messagingTemplate.convertAndSend( WEB_SOCKET_SEND_DATA_DESTINATION, dataMap.getJson().toString());
     }
 }

@@ -2,8 +2,6 @@ package com.slashandpair.exchange;
 
 import org.json.JSONObject;
 
-import com.slashandpair.datastructures.ClickData;
-import com.slashandpair.datastructures.GyroscopeData;
 import com.slashandpair.datastructures.ObjectData;
 
 public class DataConvert {

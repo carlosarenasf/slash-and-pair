@@ -19,10 +19,16 @@
         stompClient.connect({}, function (frame) {
             setConnected(true);
             console.log('Connected: ' + frame);
-            stompClient.subscribe('/user/' + $("#userId").text() + '/desktop/mobileConnectionSuccess', function (greeting) {
+            stompClient.subscribe('/user/desktop/mobileConnectionSuccess', function (greeting) {
                 showGreeting(JSON.parse(greeting.body).content);
             });
 
+            stompClient.subscribe('/user/desktop/receiveMobileData', function (greeting) {
+                //showGreeting(JSON.parse(greeting.body).content);
+                //$("connectedInformation").show();
+                showGreeting(greeting.body);
+                
+            });
             stompClient.subscribe('/desktop/receiveMobileData', function (greeting) {
                 //showGreeting(JSON.parse(greeting.body).content);
                 //$("connectedInformation").show();

@@ -34,11 +34,11 @@ public class MainApp {
         return "index";
     }
 
-    @MessageMapping("/dataDesktop")
-	@SendTo("/desktop/receiveMobileData")
-	public String greeting(String data) throws Exception {
-    	log.info("Show me that data<<<<<<<<<<<<<<<<<< {}", data);
-    	return new String("Que pasa código" + data);
-    }
+//    @MessageMapping("/dataDesktop")
+//	@SendTo("/desktop/receiveMobileData")
+//	public String greeting(String data) throws Exception {
+//    	log.info("Show me that data<<<<<<<<<<<<<<<<<< {}", data);
+//    	return new String("Que pasa código" + data);
+//    }
     
 }

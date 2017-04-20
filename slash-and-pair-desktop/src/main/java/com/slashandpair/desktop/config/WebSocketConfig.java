@@ -60,11 +60,11 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
               log.info("DEBUG METHOD CONFIGURE CLIENT PRESEND8: - {}" , accessor.getSubscriptionId());
               if (StompCommand.CONNECT.equals(command)) {
                   if (accessor.getUser() == null) {
-                	  log.info("FUCKING USER EQUALS NULL - {}" , accessor.getUser());
+                	  log.info("USER EQUALS NULL - {}" , accessor.getUser());
                       Principal user = securityService.getAuthenticationOrCreateNewOne();
                       accessor.setUser(user);
                   }else{
-                	  log.info("FUCKING USER different EQUALS NULL try to register again or recuperate - {}" , accessor.getUser());
+                	  log.info("USER different EQUALS NULL try to register again or recuperate - {}" , accessor.getUser());
                   }
                   
               }
