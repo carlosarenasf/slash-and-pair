@@ -17,8 +17,9 @@
 	<div class="col-sm-12">
 		<h1 class="centered" >This is your code!</h1>
   		<h2 class="centered">Put it on localhost:8081/mobile and see results!</h2>
-  		    <h2 class="centered btn-success" style="font-size:3em; margin:10px 10px 10px 10px" th:text="${token}"></h2>
+  		    <p hidden="true" id="base64token" style="font-size:3em; margin:10px 10px 10px 10px" th:text="${token}"></p>
     		<h3 hidden="true" id="userId" th:text="${userId}"></h3>
+    		<img id="codeQR" style="margin: 0 auto;" alt="there is no code"/>
 	</div>
 
 </div>

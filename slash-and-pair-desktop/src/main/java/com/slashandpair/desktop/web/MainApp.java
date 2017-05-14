@@ -6,8 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.google.zxing.ChecksumException;
+import com.google.zxing.FormatException;
+import com.google.zxing.NotFoundException;
 import com.slashandpair.desktop.service.SecurityService;
 import com.slashandpair.exchange.PairingToken;
+import com.slashandpair.exchange.QRUtils;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,24 +25,17 @@ public class MainApp {
 
     private final SecurityService securityService;
     
-    
-    
     @GetMapping("/desktop")
     public String getIndex(Model model) {
-    	log.info("<<<<<<<<<<<<<<<<< First Time getIndex: - {} ", securityService.getAuthenticationOrCreateNewOne().getName());
         PairingToken pairingToken = securityService.generateToken();
-        model.addAttribute("token", pairingToken.getToken());
+        try {
+			model.addAttribute("token", "data:image/png;base64,"+QRUtils.generateQRDynamicByParameterString(securityService.generateNewUserId()));
+		} catch (NotFoundException | ChecksumException | FormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         model.addAttribute("userId", pairingToken.getUserId());
-        log.info("<<<<<<<<<<<<<<<<< First Time pairingToken.getToken() {}: - " ,pairingToken.getToken());
-        log.info("<<<<<<<<<<<<<<<<< First Time  pairingToken.getUserId() {}: - " , pairingToken.getUserId());
         return "index";
     }
 
-//    @MessageMapping("/dataDesktop")
-//	@SendTo("/desktop/receiveMobileData")
-//	public String greeting(String data) throws Exception {
-//    	log.info("Show me that data<<<<<<<<<<<<<<<<<< {}", data);
-//    	return new String("Que pasa código" + data);
-//    }
-    
 }
