@@ -44,32 +44,32 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
       registration.setInterceptors(new ChannelInterceptorAdapter() {
           @Override
           public Message<?> preSend(Message<?> message, MessageChannel channel) {
-        	  log.info("Doing clientinboundchannel message <<<<<<<<<<<<<<<<<< {}", message.toString());
-        	  log.info("Doing clientinboundchannel channel? <<<<<<<<<<<<<<<<<< {}", channel.toString());
+        	  //log.info("Doing clientinboundchannel message <<<<<<<<<<<<<<<<<< {}", message.toString());
+        	  //log.info("Doing clientinboundchannel channel? <<<<<<<<<<<<<<<<<< {}", channel.toString());
               StompHeaderAccessor accessor =
                   MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
               StompCommand command = accessor.getCommand();
-              log.info("DEBUG METHOD CONFIGURE CLIENT PRESEND1: - {}" , accessor.getId());
-              log.info("DEBUG METHOD CONFIGURE CLIENT PRESEND2: - {}" , accessor);
-              log.info("DEBUG METHOD CONFIGURE CLIENT PRESEND3: - {}" , accessor.getDestination());
-              log.info("DEBUG METHOD CONFIGURE CLIENT PRESEND4: - {}" , accessor.getLogin());
-              log.info("DEBUG METHOD CONFIGURE CLIENT PRESEND5: - {}" , accessor.getSessionId());
-              log.info("DEBUG METHOD CONFIGURE CLIENT PRESEND6: - {}" , accessor.getSessionAttributes());
-              log.info("DEBUG METHOD CONFIGURE CLIENT PRESEND7: - {}" , accessor.getUser());
-              log.info("DEBUG METHOD CONFIGURE CLIENT PRESEND8: - {}" , accessor.getSubscriptionId());
+              //log.info("DEBUG METHOD CONFIGURE CLIENT PRESEND1: - {}" , accessor.getId());
+              //log.info("DEBUG METHOD CONFIGURE CLIENT PRESEND2: - {}" , accessor);
+              //log.info("DEBUG METHOD CONFIGURE CLIENT PRESEND3: - {}" , accessor.getDestination());
+              //log.info("DEBUG METHOD CONFIGURE CLIENT PRESEND4: - {}" , accessor.getLogin());
+              //log.info("DEBUG METHOD CONFIGURE CLIENT PRESEND5: - {}" , accessor.getSessionId());
+              //log.info("DEBUG METHOD CONFIGURE CLIENT PRESEND6: - {}" , accessor.getSessionAttributes());
+              //log.info("DEBUG METHOD CONFIGURE CLIENT PRESEND7: - {}" , accessor.getUser());
+              //log.info("DEBUG METHOD CONFIGURE CLIENT PRESEND8: - {}" , accessor.getSubscriptionId());
               
               if (StompCommand.CONNECT.equals(command)) {
                   if (accessor.getUser() == null) {
-                	  log.info("FUCKING USER EQUALS NULL - {}" , accessor.getUser());
+                	  //log.info("USER EQUALS NULL - {}" , accessor.getUser());
                       Principal user = securityService.getAuthentication();
                       accessor.setUser(user);
                   }else{
-                	  log.info("FUCKING USER different EQUALS NULL try to register again or recuperate - {}" , accessor.getUser());
+                	  //log.info("FUCKING USER different EQUALS NULL try to register again or recuperate - {}" , accessor.getUser());
                   }
               }
-              log.info("DEBUG METHOD CONFIGURE CLIENT message: - " + message.toString());
-              log.info("<<<DEBUG METHOD CONFIGURE CLIENT111>>> getfuckingnameofuserfuckinguser: - {}", accessor.getUser().getName());
-              log.info("<<<DEBUG METHOD CONFIGURE CLIENT111>>> getfuckingnameofuserfuckingmesage!!!!!!!: - {}", message.getPayload());
+              //log.info("DEBUG METHOD CONFIGURE CLIENT message: - " + message.toString());
+              //log.info("<<<DEBUG METHOD CONFIGURE CLIENT111>>> getfuckingnameofuserfuckinguser: - {}", accessor.getUser().getName());
+              //log.info("<<<DEBUG METHOD CONFIGURE CLIENT111>>> getfuckingnameofuserfuckingmesage!!!!!!!: - {}", message.getPayload());
 
               return message;
           }

@@ -20,7 +20,8 @@ function connect() {
         setConnected(true);
         console.log('Connected: ' + frame);
         stompClient.subscribe('/user/desktop/mobileConnectionSuccess', function (greeting) {
-            showGreeting(JSON.parse(greeting.body).content);
+            //showGreeting(JSON.parse(greeting.body).content);
+            alert("Conection success");
         });
 
         stompClient.subscribe('/user/desktop/receiveMobileData', function (greeting) {

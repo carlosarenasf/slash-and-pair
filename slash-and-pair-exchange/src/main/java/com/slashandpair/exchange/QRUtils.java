@@ -8,7 +8,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-
 import java.util.EnumMap;
 import java.util.Hashtable;
 import java.util.Map;
@@ -33,7 +32,9 @@ import com.google.zxing.qrcode.QRCodeReader;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class QRUtils {
 	
 //	public static void main(String[] args) throws NotFoundException, ChecksumException, FormatException {
@@ -43,6 +44,7 @@ public class QRUtils {
 	
 	
 	public static String generateQRDynamicByParameterString(String identifier) throws NotFoundException, ChecksumException, FormatException {
+		log.info("El codigo que quieres encriptar es el siguiente {} >>>> ", identifier );
 		String myCodeText = identifier;
 		String filePath = "CrunchifyQR.png";
 		int size = 250;
@@ -53,7 +55,7 @@ public class QRUtils {
 		try {
 			
 			Map<EncodeHintType, Object> hintMap = new EnumMap<EncodeHintType, Object>(EncodeHintType.class);
-			hintMap.put(EncodeHintType.CHARACTER_SET, "UTF-8");
+			hintMap.put(EncodeHintType.CHARACTER_SET, "ISO-8859-1");
 			
 			hintMap.put(EncodeHintType.MARGIN, 1); /* default = 4 */
 			hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);

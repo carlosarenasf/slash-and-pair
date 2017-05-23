@@ -7,7 +7,6 @@
  */
 (function(undefined) {
     "use strict";
-
     function Q(el) {
         if (typeof el === "string") {
             var els = document.querySelectorAll(el);
@@ -52,6 +51,10 @@
             });
             scannedImg.src = res.imgData;
             scannedQR[txt] = res.format + ": " + res.code;
+            //var codigoQRDecoded = res.code;
+            //alert("dentro del main: " + codigoQRDecoded);
+            $('#token').val(res.code).trigger('change');
+            //Trigger to get value of hidden qr data
         },
         getDevicesError: function(error) {
             var p, message = "Error detected with the following parameters:\n";
@@ -114,14 +117,14 @@
         decoder.stop();
     }, false);
     Page.changeZoom = function(a) {
-        if (decoder.isInitialized()) {
-            var value = typeof a !== "undefined" ? parseFloat(a.toPrecision(2)) : zoom.value / 10;
-            zoomValue[txt] = zoomValue[txt].split(":")[0] + ": " + value.toString();
-            decoder.options.zoom = value;
-            if (typeof a != "undefined") {
-                zoom.value = a * 10;
-            }
-        }
+//        if (decoder.isInitialized()) {
+//           var value = typeof a !== "undefined" ? parseFloat(a.toPrecision(2)) : zoom.value / 10;
+//            zoomValue[txt] = zoomValue[txt].split(":")[0] + ": " + value.toString();
+//            decoder.options.zoom = value;
+//            if (typeof a != "undefined") {
+//                zoom.value = a * 10;
+//            }
+//        }
     };
     Page.changeContrast = function() {
         if (decoder.isInitialized()) {

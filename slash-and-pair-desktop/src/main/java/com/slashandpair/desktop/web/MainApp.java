@@ -29,8 +29,8 @@ public class MainApp {
     public String getIndex(Model model) {
         PairingToken pairingToken = securityService.generateToken();
         try {
-			model.addAttribute("token", "data:image/png;base64,"+QRUtils.generateQRDynamicByParameterString(securityService.generateNewUserId()));
-		} catch (NotFoundException | ChecksumException | FormatException e) {
+			model.addAttribute("token", "data:image/png;base64," +QRUtils.generateQRDynamicByParameterString(pairingToken.getToken()));
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

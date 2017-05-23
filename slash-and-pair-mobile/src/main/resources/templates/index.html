@@ -9,6 +9,7 @@
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <script src="/html5-qrcode.min.js"></script>
+    <script src="/index.js"></script>
 </head>
 <body>
 	 
@@ -69,10 +70,10 @@
         <script type="text/javascript" src="/main.js"></script>
 <main>
 	
-	<form class="form-inline" th:action="@{/synch}" method="post">
+	<form id ="post-form" class="form-inline" th:action="@{/synch}" method="post">
 	    <div class="form-group">
 	        <label for="connect">WebSocket connection:</label>
-            <input type="number" name="token" placeholder="****" min="0" max="9999" step="1"/>
+            <input  name="token" id = "token"/>
 	        <button id="connect" class="btn btn-default" type="submit">Synch!</button>
 	    </div>
 	</form>

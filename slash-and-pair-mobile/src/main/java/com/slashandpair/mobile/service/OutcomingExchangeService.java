@@ -30,8 +30,8 @@ public class OutcomingExchangeService {
     }
 
     public void sendMobileContent(String userId ,String data) {
-    	log.info("OutcomingExchangeService sendMobileContent userId {}", userId);
-    	log.info("OutcomingExchangeService sendMobileContent data {}", data);
+    	//log.info("OutcomingExchangeService sendMobileContent userId {}", userId);
+    	log.info("sendMobileContent outcomingexchangeservice {}", data);
     	rabbitTemplate.convertAndSend("slash-and-pair-data", "newData", DataConvert.mappingUserAndJson(userId, data));
     }
 

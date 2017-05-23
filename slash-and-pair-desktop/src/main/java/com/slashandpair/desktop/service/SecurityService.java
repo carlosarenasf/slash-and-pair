@@ -34,8 +34,8 @@ public class SecurityService {
         Authentication authentication = context.getAuthentication();
         if (authentication == null || "anonymousUser".equals(authentication.getName())) {
             String newUserName = generateNewUserId();
-            log.info("New user authenticated with id {}", newUserName);
-            log.info("Doing getAuthenticationOrCreateNewOne newusername <<<<<<<<<<<<<<<<<< {}", newUserName);
+            //log.info("New user authenticated with id {}", newUserName);
+            //log.info("Doing getAuthenticationOrCreateNewOne newusername <<<<<<<<<<<<<<<<<< {}", newUserName);
             authentication = new UsernamePasswordAuthenticationToken(newUserName, null, null);
             context.setAuthentication(authentication);
         }
@@ -45,14 +45,14 @@ public class SecurityService {
 
     public PairingToken generateToken() {
 
-        int min = 1000;
-        int max = 9999;
-        int generatedInt = new Random().nextInt(max + 1 - min)  + min;
+//        int min = 1000;
+//        int max = 9999;
+//        int generatedInt = new Random().nextInt(max + 1 - min)  + min;
         Authentication authentication = getAuthenticationOrCreateNewOne();
 
 
         String userId = authentication.getName();
-        PairingToken pairingToken = PairingToken.of(userId, String.valueOf(generatedInt));
+        PairingToken pairingToken = PairingToken.of(userId, generateNewUserId());
         tokenService.storePairingToken(pairingToken);
         return pairingToken;
     }

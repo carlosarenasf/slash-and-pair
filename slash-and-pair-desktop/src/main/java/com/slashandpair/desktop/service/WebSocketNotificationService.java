@@ -34,7 +34,7 @@ public class WebSocketNotificationService implements NotificationService {
         )
     )
     public void notifyMobileConnected(String user) {
-    	log.info("NotifyPAIRING 111 notifyMobileConnected user <<<<<<<<<<<<<<<<<< {}", user);
+    	//log.info("NotifyPAIRING 111 notifyMobileConnected user <<<<<<<<<<<<<<<<<< {}", user);
         messagingTemplate.convertAndSendToUser(user, WEB_SOCKET_CONNECTION_SUCCESS_DESTINATION, "connected");
     }
 
@@ -48,10 +48,7 @@ public class WebSocketNotificationService implements NotificationService {
     
     public void notifyNewData(String data) {
     	ObjectData dataMap = (ObjectData) DataConvert.mappingFromJson(data);
-    	log.info("NotifyNewData 222 WebSocketNotificationService data <<<<<<<<<<<<<<<<<< {}", dataMap.getJson());
-    	log.info("NotifyNewData 222 WebSocketNotificationService user principal <<<<<<<<<<<<<<<<<< {}", dataMap.getUserId());
-    	
+    	log.info("notifyNewData ---- WebSocketNotificationService {}", dataMap.getJson());
         messagingTemplate.convertAndSendToUser(dataMap.getUserId().toString(), WEB_SOCKET_SEND_DATA_DESTINATION, dataMap.getJson().toString());
-//        messagingTemplate.convertAndSend( WEB_SOCKET_SEND_DATA_DESTINATION, dataMap.getJson().toString());
     }
 }
