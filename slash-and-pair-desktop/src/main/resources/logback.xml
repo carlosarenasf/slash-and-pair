@@ -1,0 +1,17 @@
+<configuration>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{0} %X{akkaSource} -%msg%n</pattern>
+		</encoder>
+	</appender>
+	<root level="info">
+		<appender-ref ref="STDOUT"/>
+		<appender-ref ref="STDOUT"/>
+	 </root>
+	 
+	<appender name="AMQP" class="org.springframework.amqp.rabbit.logback.AmqpAppender">
+		<layout>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} <![CDATA[ %d %p %t [%c] - <%m>%n ]]></pattern>
+		</layout>
+	</appender>
+</configuration>

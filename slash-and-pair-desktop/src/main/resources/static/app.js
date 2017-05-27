@@ -22,15 +22,10 @@ function connect() {
         stompClient.subscribe('/user/desktop/mobileConnectionSuccess', function (greeting) {
             //showGreeting(JSON.parse(greeting.body).content);
             alert("Conection success");
+            $('#divQR').css('display', 'none');
         });
 
         stompClient.subscribe('/user/desktop/receiveMobileData', function (greeting) {
-            //showGreeting(JSON.parse(greeting.body).content);
-            //$("connectedInformation").show();
-            showGreeting(greeting.body);
-            
-        });
-        stompClient.subscribe('/desktop/receiveMobileData', function (greeting) {
             //showGreeting(JSON.parse(greeting.body).content);
             //$("connectedInformation").show();
             showGreeting(greeting.body);
@@ -52,9 +47,37 @@ function showGreeting(message) {
     //$("#greetings").append("<tr><td>" + message + "</td></tr>");
     var parse = message;
 	var json_obj = JSON.parse(parse);
-    $("#alpha").text(json_obj.alpha);
-    $("#betta").text(json_obj.beta);
-    $("#gamma").text(json_obj.gamma);
+	var alpha = parseFloat(json_obj.alpha);
+	var beta = parseFloat(json_obj.beta);
+	var gamma = parseFloat(json_obj.gamma);
+	if(beta > 10.0){
+		KeyboardJS.bind.sensorDown("right");
+		console.log("press");
+	} else {
+        KeyboardJS.bind.sensorUp("right");
+        console.log("up");
+	}
+	if(beta < -10.0){
+		KeyboardJS.bind.sensorDown("left");
+		console.log("press");
+	} else {
+        KeyboardJS.bind.sensorUp("left");
+        console.log("up");
+	}
+	if(gamma > 10.0){
+		KeyboardJS.bind.sensorDown("up");
+		console.log("press");
+	} else {
+        KeyboardJS.bind.sensorUp("up");
+        console.log("up");
+	}
+	if(gamma < -10.0){
+		KeyboardJS.bind.sensorDown("down");
+		console.log("press");
+	} else {
+        KeyboardJS.bind.sensorUp("down");
+        console.log("up");
+	}
 }
 
 /*$(document).ready(function() {

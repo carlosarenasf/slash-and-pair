@@ -267,6 +267,8 @@
 		return output;
 	}
 
+	
+
 	/**
 	 * Binds a on key down and on key up callback to a key or key combo. Accepts a string containing the name of each
 	 * key you want to bind to comma separated. If you want to bind a combo the use the plus sign to link keys together.
@@ -319,6 +321,34 @@
 		}
 	}
 
+
+	function sensorListenerUp(key){
+
+		var iAK = activeKeys.indexOf(key);
+
+		if(iAK > -1) {
+			activeKeys.splice(iAK, 1);
+		}
+		
+		
+
+		//execute the end callback on the active key binding
+		return pruneActiveKeyBindings(event);
+	}
+
+	function sensorListenerDown(key){
+		//lookup the key pressed and save it to the active keys array
+		/*for (var key in keys) {
+			if(keys.hasOwnProperty(key) && event.keyCode === keys[key]) {
+				*/if(activeKeys.indexOf(key) < 0) {
+					activeKeys.push(key);
+				}
+			/*}
+		}*/
+
+		//execute the first callback the longest key binding that matches the active keys
+		return executeActiveKeyBindings(event);
+	}
 	/**
 	 * Binds keys or key combos to an axis. The keys should be in the following order; up, down, left, right. If any
 	 * of the the binded key or key combos are active the callback will fire. The callback will be passed an array
@@ -350,9 +380,11 @@
 		var clearUp = bindKey(up, function () {
 			if(axis[0] === 0) {
 				axis[0] = -1;
+				console.log("up1");
 			}
 		}, function() {
 			axis[0] = 0;
+			console.log("up2");
 		}).clear;
 
 		//down
@@ -477,7 +509,9 @@
 	return {
 		"bind": {
 			"key": bindKey,
-			"axis": bindAxis
+			"axis": bindAxis,
+			"sensorDown" : sensorListenerDown,
+			"sensorUp" : sensorListenerUp
 		},
 		"activeKeys": getActiveKeys,
 		"unbind": {
