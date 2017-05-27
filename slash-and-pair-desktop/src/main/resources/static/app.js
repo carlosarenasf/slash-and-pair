@@ -57,13 +57,9 @@ function showGreeting(message) {
     $("#gamma").text(json_obj.gamma);
 }
 
-function doCastImg(){
-	$("#codeQR").attr('src',$("#base64token").html());
-}
-
 $(document).ready(function() {
     connect();
     console.log("connected socket");
-    doCastImg();
+    
 });
 

@@ -1,14 +1,15 @@
 package com.slashandpair.desktop.service;
 
-import org.json.JSONObject;
 import org.springframework.amqp.rabbit.annotation.Exchange;
 import org.springframework.amqp.rabbit.annotation.Queue;
 import org.springframework.amqp.rabbit.annotation.QueueBinding;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import com.slashandpair.datastructures.ObjectData;
+import com.slashandpair.desktop.web.MainApp;
 import com.slashandpair.exchange.DataConvert;
 
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,8 @@ import lombok.extern.slf4j.Slf4j;
 public class WebSocketNotificationService implements NotificationService {
 
     private final SimpMessagingTemplate messagingTemplate;
+    @Autowired 
+    private final MainApp mainapp;
     private static final String WEB_SOCKET_SEND_DATA_DESTINATION = "/desktop/receiveMobileData";
     private static final String WEB_SOCKET_CONNECTION_SUCCESS_DESTINATION = "/desktop/mobileConnectionSuccess";
 
@@ -35,6 +38,7 @@ public class WebSocketNotificationService implements NotificationService {
     )
     public void notifyMobileConnected(String user) {
     	//log.info("NotifyPAIRING 111 notifyMobileConnected user <<<<<<<<<<<<<<<<<< {}", user);
+    	mainapp.getApplicationPage();
         messagingTemplate.convertAndSendToUser(user, WEB_SOCKET_CONNECTION_SUCCESS_DESTINATION, "connected");
     }
 

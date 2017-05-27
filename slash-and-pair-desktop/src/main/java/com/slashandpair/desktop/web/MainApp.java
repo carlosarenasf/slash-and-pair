@@ -37,5 +37,10 @@ public class MainApp {
         model.addAttribute("userId", pairingToken.getUserId());
         return "index";
     }
+    
+    
+    public String getApplicationPage(){
+    	return "redirect:/game";
+    }
 
 }
