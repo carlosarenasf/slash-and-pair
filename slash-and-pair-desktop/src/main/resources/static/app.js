@@ -57,9 +57,9 @@ function showGreeting(message) {
     $("#gamma").text(json_obj.gamma);
 }
 
-$(document).ready(function() {
+/*$(document).ready(function() {
     connect();
     console.log("connected socket");
     
-});
+});*/
 
