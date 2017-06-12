@@ -57,9 +57,6 @@ function showGreeting(message) {
 }
 
 function sendSomeDataMobile() {
-	var i = 3; 
-	alert("We are going to send that: " + i );
-    //stompClient.send("/app/dataMobile", {}, JSON.stringify({'code': i}));
     gyroscope();
     
 }

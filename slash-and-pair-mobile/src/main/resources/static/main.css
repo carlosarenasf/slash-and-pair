@@ -15,6 +15,7 @@ body {
 
 body {
     padding-top: 50px;
+    font-size: 4em !important;
 }
 
 .thumbnail {
@@ -32,20 +33,10 @@ body {
 
 .btn {
     margin-bottom: 2px;
+    font-size: 1.5em !important;
 }
 
-.form-control {
-    height: 32px;
-}
 
-.h4, h4 {
-    width: auto;
-    float: left;
-    font-size: 20px;
-    line-height: 1.1;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
 
 .controls {
     float: right;
@@ -63,7 +54,12 @@ body {
 }
 
 .container {
-    width: 100%
+    width: 100%;
+    text-align: center;
+}
+
+h1{
+	font-size:2em !important;
 }
 
 pre {
@@ -140,6 +136,14 @@ button {
     border-bottom: solid red 5px;
     border-right: solid red 5px;
     JS
+}
+
+.no-display{
+	display: none !important;
+}
+
+.center-align{
+	margin: auto;
 }
 
 #webcodecam-canvas {
