@@ -152,3 +152,56 @@ button {
 #scanned-QR{
     word-break: break-word;
 }
+
+.arrow{
+	position:fixed;
+	width:150px;
+	height:150px;
+}
+
+.arrow-up{
+	top: 0px;
+	left:45%;
+}
+
+.arrow-down{
+	bottom:0px;
+	left:45%;
+}
+
+.arrow-left{
+	left:0px;
+	top:43%;
+}
+
+.arrow-right{
+	right:0px;
+	top:43%;
+}
+
+@media screen and (orientation:portrait) {
+    .no-landscape{
+    	display: block !important;
+    	text-align: center;
+    }
+    .landscape{
+    	display: none;
+    }
+}
+
+@media screen and (orientation:landscape) {
+    .no-landscape{
+    	display: none !important;
+    }
+    .landscape{
+    	display: block;
+    }
+}
+
+.text-center-ex{
+	position: absolute;
+	text-align: center;
+	top:30%;
+	left:35%;
+	width: 300px;
+}
