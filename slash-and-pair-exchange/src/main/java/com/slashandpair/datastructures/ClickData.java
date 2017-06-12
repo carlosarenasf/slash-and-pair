@@ -23,11 +23,10 @@ public class ClickData {
 		this.positionY = (String) jsonObj.get("positionY");
 	}
 	
-	public String convertDataInJson(){
-		String jsonString = new JSONObject()
+	public JSONObject convertDataInJson(){
+		return new JSONObject()
 		.put("typeData", "ClickData")
 	    .put("positionX", this.positionX)
-	    .put("positionY", this.positionY).toString();
-	    return jsonString;
+	    .put("positionY", this.positionY);
 	}	
 }

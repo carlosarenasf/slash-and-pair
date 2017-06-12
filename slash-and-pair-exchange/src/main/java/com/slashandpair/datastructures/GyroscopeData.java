@@ -24,13 +24,12 @@ public class GyroscopeData {
     	this.gamma = String.valueOf(jsonObj.get("gamma"));
     }
     
-    public String convertDataInJson() {
-        String jsonString = new JSONObject()
+    public JSONObject convertDataInJson() {
+        return new JSONObject()
                 .put("typeData", "GyroscopeData")
                 .put("alpha", this.alpha)
                 .put("beta", this.beta)
-                .put("gamma", this.gamma).toString();
-        return jsonString;
+                .put("gamma", this.gamma);
     }
 	
 	@Override

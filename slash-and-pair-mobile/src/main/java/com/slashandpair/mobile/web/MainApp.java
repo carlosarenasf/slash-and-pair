@@ -66,7 +66,7 @@ public class MainApp {
 	public void sendGyroscope(String gyrosJson, Principal principal) throws Exception {
     	GyroscopeData gyros = new GyroscopeData(gyrosJson);
     	log.info("sendGyroscope Information: {}", gyros.toString());
-    	outcomingExchangeService.sendMobileContent(principal.getName(), gyros.convertDataInJson());
+    	outcomingExchangeService.sendMobileContent(principal.getName(), gyros.convertDataInJson().toString());
     }
     
     @MessageMapping("/dataMobile/click")
@@ -74,6 +74,6 @@ public class MainApp {
     	ClickData click = new ClickData(clickJson);
     	//log.info("Getting some data from mobile <<<<<<<<<<<<<<<<<< {}", click.toString());
     	//log.info("Getting some data from principal can be? <<<<<<<<<<<<<<<<<< {}", principal);
-    	outcomingExchangeService.sendMobileContent(principal.getName(), click.convertDataInJson());
+    	outcomingExchangeService.sendMobileContent(principal.getName(), click.convertDataInJson().toString());
     }
 }
