@@ -78,7 +78,8 @@ $(document).ready(function() {
     connect();
     console.log("connected socket");
     sendSomeDataMobile();
-   
+    var noSleep = new NoSleep();
+    noSleep.enable(); // keep the screen on!
     
 });
     
