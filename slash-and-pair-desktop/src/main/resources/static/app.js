@@ -19,22 +19,26 @@ function connect() {
     stompClient.connect({}, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/user/desktop/sendFourCode', function (greeting) {
+        stompClient.subscribe('/user/sendFourCode', function (greeting) {
             changeToCode(greeting.body);
         });
-        stompClient.subscribe('/user/desktop/mobileConnectionSuccess', function (greeting) {
+        stompClient.subscribe('/user/mobileConnectionSuccess', function (greeting) {
             //showGreeting(JSON.parse(greeting.body).content);
             $('#divQR').css('display', 'none');
             $('.overlay').css('display', 'none');
         });
 
-        stompClient.subscribe('/user/desktop/receiveMobileData', function (greeting) {
+        stompClient.subscribe('/user/receiveMobileData', function (greeting) {
             //showGreeting(JSON.parse(greeting.body).content);
             //$("connectedInformation").show();
             showGreeting(greeting.body);
             
         });
-    });
+    
+	}, function(message) {
+	  connect();
+	  
+	});
 }
 
 function changeToCode(valueCode){
@@ -91,7 +95,7 @@ function showGreeting(message) {
 
 function request4Digits(){
 	var code = "4digitscode";
-    stompClient.send("/app/desktop/fourCode", {}, JSON.stringify({'code': "codigo"}));
+    stompClient.send("/app/fourCode", {}, JSON.stringify({'code': "codigo"}));
 	
     
 }
