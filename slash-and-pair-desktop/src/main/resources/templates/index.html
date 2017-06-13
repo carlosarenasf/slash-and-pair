@@ -291,7 +291,7 @@
             $(document).ready(function() {
                 connect();
                 console.log("connected socket");
-                
+                $("#reclamacodigo").on('click',request4Digits);
                 
                 // Prepare the instructions.
                 $('#instructions').center();
@@ -368,6 +368,7 @@
   		    <p hidden="true" id="base64token" style="font-size:3em; margin:10px 10px 10px 10px" th:text="${token}"></p>
     		<h3 hidden="true" id="userId" th:text="${userId}"></h3>
     		<img id="codeQR" style="margin: 0 auto;" alt="there is no code"/>
+    		<a id="reclamacodigo">clica para pedir tu codigo</a>
 	</div>
 	
     <div id='instructions'>

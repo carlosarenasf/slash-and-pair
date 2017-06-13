@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Random;
 
 /**
@@ -34,8 +35,7 @@ public class SecurityService {
         Authentication authentication = context.getAuthentication();
         if (authentication == null || "anonymousUser".equals(authentication.getName())) {
             String newUserName = generateNewUserId();
-            //log.info("New user authenticated with id {}", newUserName);
-            //log.info("Doing getAuthenticationOrCreateNewOne newusername <<<<<<<<<<<<<<<<<< {}", newUserName);
+            log.info("New user authenticated with id {}", newUserName);
             authentication = new UsernamePasswordAuthenticationToken(newUserName, null, null);
             context.setAuthentication(authentication);
         }
@@ -44,17 +44,35 @@ public class SecurityService {
     }
 
     public PairingToken generateToken() {
-
-//        int min = 1000;
-//        int max = 9999;
-//        int generatedInt = new Random().nextInt(max + 1 - min)  + min;
         Authentication authentication = getAuthenticationOrCreateNewOne();
-
-
         String userId = authentication.getName();
-        PairingToken pairingToken = PairingToken.of(userId, generateNewUserId());
+        log.info("user id in generateToken {}", userId);
+        String newuseridgenerated= generateNewUserId();
+        log.info("newnew user id generated {}", newuseridgenerated);
+        PairingToken pairingToken = PairingToken.of(userId, newuseridgenerated);
         tokenService.storePairingToken(pairingToken);
+        log.info("newtokengeneratedseemore {}", pairingToken.getToken());
         return pairingToken;
     }
 
+    
+    
+    public PairingToken generateToken4Digits(String userId){
+		int min = 1000;
+		int max = 9999;
+		int generatedInt = new Random().nextInt(max + 1 - min)  + min;
+		log.info(">>>>>>>>>>> generated int name {}", generatedInt);
+		Optional<PairingToken> token1 = tokenService.findPairingTokenByUserId(userId);
+		PairingToken token2 = token1.get();
+		String token = token2.getToken();
+		String userIdToken = token2.getUserId();
+		log.info(">>>>>>>>>>> token stored name {}", token);
+		log.info(">>>>>>>>>>> useridtoken stored name {}", userIdToken);
+		
+        PairingToken pairingToken = PairingToken.of(userId, String.valueOf(generatedInt));
+        tokenService.storePairingToken(pairingToken);
+        log.info("newtokengeneratedseemore {}", pairingToken.getToken());
+        return pairingToken;
+    }
+    
 }

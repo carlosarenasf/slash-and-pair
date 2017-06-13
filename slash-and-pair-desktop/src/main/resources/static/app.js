@@ -19,9 +19,11 @@ function connect() {
     stompClient.connect({}, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
+        stompClient.subscribe('/user/desktop/sendFourCode', function (greeting) {
+            changeToCode(greeting.body);
+        });
         stompClient.subscribe('/user/desktop/mobileConnectionSuccess', function (greeting) {
             //showGreeting(JSON.parse(greeting.body).content);
-            alert("Conection success");
             $('#divQR').css('display', 'none');
         });
 
@@ -32,6 +34,12 @@ function connect() {
             
         });
     });
+}
+
+function changeToCode(valueCode){
+	$('#divQR').find('img').after("<h1>"+valueCode+"</h1>")
+	$('#divQR').find('img').remove()
+	//changeToCode(greeting.body);
 }
 
 function disconnect() {
@@ -78,6 +86,13 @@ function showGreeting(message) {
         KeyboardJS.bind.sensorUp("down");
         console.log("up");
 	}
+}
+
+function request4Digits(){
+	var code = "4digitscode";
+    stompClient.send("/app/desktop/fourCode", {}, JSON.stringify({'code': "codigo"}));
+	
+    
 }
 
 /*$(document).ready(function() {
