@@ -12,6 +12,19 @@ function setConnected(connected) {
     $("#greetings").html("");
 }
 
+function forceLandScape(){
+	document.addEventListener("orientationchange", function(event){
+	    switch(window.orientation) 
+	    {  
+	        case -90: case 90:
+	            /* Device is in landscape mode */
+	            break; 
+	        default:
+	            /* Device is in portrait mode */
+	    }
+	});
+}
+
 function connect() {
     var socket = new SockJS('/slash-and-pair');
     stompClient = Stomp.over(socket);
