@@ -25,6 +25,7 @@ function connect() {
         stompClient.subscribe('/user/desktop/mobileConnectionSuccess', function (greeting) {
             //showGreeting(JSON.parse(greeting.body).content);
             $('#divQR').css('display', 'none');
+            $('.overlay').css('display', 'none');
         });
 
         stompClient.subscribe('/user/desktop/receiveMobileData', function (greeting) {
@@ -37,8 +38,8 @@ function connect() {
 }
 
 function changeToCode(valueCode){
-	$('#divQR').find('img').after("<h1>"+valueCode+"</h1>")
-	$('#divQR').find('img').remove()
+	$('#divQR').find('img').after("<h1 style='font-size:3em;'>"+valueCode+"</h1>");
+	$('#divQR').find('img').remove();
 	//changeToCode(greeting.body);
 }
 

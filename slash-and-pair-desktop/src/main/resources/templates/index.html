@@ -5,7 +5,8 @@
     	<title>Game!</title>
     	<meta charset="UTF-8"/>
     	<script src="/jquery.js"></script>
-   	    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+   	    <!-- link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet"/> -->
+   	    <link href="/main.css" rel="stylesheet"/>
 	    <script src="/webjars/jquery/jquery.min.js"></script>
 	    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
 	    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
@@ -362,26 +363,21 @@
     </head>
     
     <body>
-    <div id="divQR">
-		<h1 class="centered" >This is your code!</h1>
-  		<h2 class="centered">Put it on localhost:8081/mobile and see results!</h2>
-  		    <p hidden="true" id="base64token" style="font-size:3em; margin:10px 10px 10px 10px" th:text="${token}"></p>
-    		<h3 hidden="true" id="userId" th:text="${userId}"></h3>
-    		<img id="codeQR" style="margin: 0 auto;" alt="there is no code"/>
-    		<a id="reclamacodigo">clica para pedir tu codigo</a>
-	</div>
-	
-    <div id='instructions'>
-        How to play Astray:
-        <br/><br/>
-        Use the arrow keys to move the ball and find the exit to the maze.
-        <br/><br/>
-        Vim trainees: h, j, k, l
-    </div>
     
-    <div id='help'>
-        Hold down the 'I' key for instructions.
-    </div>
+    <div id="divQR">
+	    <div class="info-code">
+			<h1 class="center" >Escanea el código con tu móvil</h1>
+	  		<h3 class="center">Ves a www.slash-and-pair.theblackbox.io en tu móvil!</h3>
+			<p hidden="true" id="base64token" style="font-size:3em; margin:10px 10px 10px 10px" th:text="${token}"></p>
+	   		<h3 hidden="true" id="userId" th:text="${userId}"></h3>
+	   		<img class="center" id="codeQR" alt="there is no code"/><br/>
+	   		<p>Si no te funciona la cámara, clica en el siguiente botón y introduce el los números en tu móvil</p>
+	   		<a class="center button-code" id="reclamacodigo">Código</a>
+   		</div>
+	</div>
+	<div class="overlay"></div>
+   
+    
 
     <div id='level'>
         Level 1
