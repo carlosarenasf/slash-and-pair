@@ -31,7 +31,7 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 	//Este metodo sobreescribe el metodo predeterminado
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/mobile","/queue");
+        config.enableSimpleBroker("/","/queue");
         config.setApplicationDestinationPrefixes("/app");
     }
     

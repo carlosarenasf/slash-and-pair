@@ -26,8 +26,8 @@ public class WebSocketNotificationService implements NotificationService {
     private final SimpMessagingTemplate messagingTemplate;
     @Autowired 
     private final MainApp mainapp;
-    private static final String WEB_SOCKET_SEND_DATA_DESTINATION = "/desktop/receiveMobileData";
-    private static final String WEB_SOCKET_CONNECTION_SUCCESS_DESTINATION = "/desktop/mobileConnectionSuccess";
+    private static final String WEB_SOCKET_SEND_DATA_DESTINATION = "/receiveMobileData";
+    private static final String WEB_SOCKET_CONNECTION_SUCCESS_DESTINATION = "/mobileConnectionSuccess";
 
     @RabbitListener(
         bindings = @QueueBinding(

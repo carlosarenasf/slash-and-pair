@@ -32,7 +32,7 @@ public class MainApp {
     private final TokenService tokenService;
     private final OutcomingExchangeService outcomingExchangeService;
     
-    @GetMapping("/mobile")
+    @GetMapping("/")
     public String getIndex() {
         return "index";
     }

@@ -18,6 +18,14 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 
 import java.security.Principal;
 
+/**
+ * 
+ * @author Victor 
+ * @author Carlos
+ * @author Guillermo
+ * 
+ */
+
 //@Configuracion spring lo entiende ocmo que es una clase de configuracion 
 @Configuration
 //Esta notacion, activa el envio/recepcion de mensajes a traves de websockets.
@@ -32,7 +40,7 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
         config.enableSimpleBroker("/user");
-        config.enableSimpleBroker("/desktop");
+        config.enableSimpleBroker("/");
         config.setApplicationDestinationPrefixes("/app");
     }
     

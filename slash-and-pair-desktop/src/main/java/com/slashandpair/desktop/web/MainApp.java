@@ -19,7 +19,13 @@ import com.slashandpair.exchange.QRUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-
+/**
+ * 
+ * @author Victor 
+ * @author Carlos
+ * @author Guillermo
+ * 
+ */
 
 @Controller
 @RequiredArgsConstructor
@@ -31,7 +37,7 @@ public class MainApp {
     @Autowired
     private SimpMessagingTemplate template;
     
-    @GetMapping("/desktop")
+    @GetMapping("/")
     public String getIndex(Model model) {
         PairingToken pairingToken = securityService.generateToken();
         try {
@@ -45,13 +51,13 @@ public class MainApp {
     }
     
         
-    @MessageMapping("/desktop/fourCode")
+    @MessageMapping("/fourCode")
     public void sendCode(Principal principal) {
     	log.info(">>>>>>>>>>> principal name {}", principal.getName());
         PairingToken pairingToken = securityService.generateToken4Digits(principal.getName());
         try {
         	log.info("DIGITS >>>>>>>>> {}", pairingToken.getToken());
-			template.convertAndSendToUser(principal.getName(), "/desktop/sendFourCode", pairingToken.getToken());
+			template.convertAndSendToUser(principal.getName(), "/sendFourCode", pairingToken.getToken());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

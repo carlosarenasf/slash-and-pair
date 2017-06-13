@@ -20,8 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 public class OutcomingExchangeService {
 
     private final RabbitTemplate rabbitTemplate;
-    private static final String WEB_SOCKET_SEND_DATA_DESTINATION = "/desktop/receiveMobileData";
-    private static final String WEB_SOCKET_CONNECTION_SUCCESS_DESTINATION = "/desktop/mobileConnectionSuccess";
+    private static final String WEB_SOCKET_SEND_DATA_DESTINATION = "/receiveMobileData";
+    private static final String WEB_SOCKET_CONNECTION_SUCCESS_DESTINATION = "/mobileConnectionSuccess";
     
     
     public void notifyMobilePaired(String userId) {

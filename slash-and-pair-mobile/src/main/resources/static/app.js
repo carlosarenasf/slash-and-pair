@@ -19,9 +19,11 @@ function connect() {
     stompClient.connect({}, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/mobile/sendMobileData', function (greeting) {
+        stompClient.subscribe('/sendMobileData', function (greeting) {
             //showGreeting(JSON.parse(greeting.body).content);
         });
+     }, function(message) {
+		connect();
     });
 }
 
