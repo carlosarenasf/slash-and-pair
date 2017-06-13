@@ -1,4 +1,5 @@
 var stompClient = null;
+var firstExecuted = true;
 
 function setConnected(connected) {
     $("#connect").prop("disabled", connected);
@@ -10,19 +11,6 @@ function setConnected(connected) {
         $("#conversation").hide();
     }
     $("#greetings").html("");
-}
-
-function forceLandScape(){
-	document.addEventListener("orientationchange", function(event){
-	    switch(window.orientation) 
-	    {  
-	        case -90: case 90:
-	            /* Device is in landscape mode */
-	            break; 
-	        default:
-	            /* Device is in portrait mode */
-	    }
-	});
 }
 
 function connect() {
@@ -55,7 +43,14 @@ function gyroscope(){
 	{
 	    window.addEventListener("deviceorientation", function () 
 	    {
-	    	stompClient.send("/app/dataMobile/gyroscope", {}, JSON.stringify({'alpha': event.alpha, 'beta' : event.beta, 'gamma' : event.gamma}));
+	    	var alpha = event.alpha;
+	    	var beta = event.beta;
+	    	var gamma = event.gamma;
+	    	if(beta < 15 && beta > 5 || beta > -15 && beta < -5 ||  gamma < 15 && gamma > 5 || gamma > -15 && gamma < -5) {
+	    		stompClient.send("/app/dataMobile/gyroscope", {}, JSON.stringify({'alpha': event.alpha, 'beta' : event.beta, 'gamma' : event.gamma}));
+	    	}
+
+	    		
 	    }, true);
 	} 
 }
@@ -74,14 +69,22 @@ function sendSomeDataMobile() {
     
 }
 
+function setupNoSleep(){
+	$('#button-no-sleep').on('click', function(){
+		var noSleep = new NoSleep();
+	    noSleep.enable(); // keep the screen on!
+	});
+	
+	
+}
+
 $(document).ready(function() {
     connect();
     console.log("connected socket");
     sendSomeDataMobile();
-    var noSleep = new NoSleep();
-    noSleep.enable(); // keep the screen on!
-    
+    setupNoSleep();
 });
+
     
 
 $(function () {
