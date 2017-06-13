@@ -6,7 +6,7 @@ import lombok.Data;
 
 
 @Data
-public class GyroscopeData {
+public class GyroscopeData implements AbstractSensor{
 	private String alpha;
 	private String beta;
 	private String gamma;

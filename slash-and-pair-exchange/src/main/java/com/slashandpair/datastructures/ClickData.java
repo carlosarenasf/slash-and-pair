@@ -8,7 +8,8 @@ import org.json.JSONObject;
 import lombok.Data;
 
 @Data
-public class ClickData {
+public class ClickData implements AbstractSensor{
+	
 	private String positionX;
 	private String positionY;
 	
