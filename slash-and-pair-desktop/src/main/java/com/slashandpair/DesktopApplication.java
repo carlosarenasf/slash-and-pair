@@ -2,10 +2,12 @@ package com.slashandpair;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 /**
  * 
  * This class contains main method that runs application.
- * @author Victor 
+ * 
+ * @author Victor
  * @author Carlos
  * @author Guillermo
  * 

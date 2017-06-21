@@ -21,6 +21,14 @@ import com.slashandpair.mobile.service.security.SecurityService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * This class enables WebSockets through Spring Application. Contains a bean of securityService 
+ * and several methods that filters connections.
+ * @author Carlos 
+ * @author Victor
+ * @author Guillermo
+ * 
+ */
 @Configuration
 @EnableWebSocketMessageBroker
 @Slf4j
@@ -29,64 +37,50 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 	private final OutcomingExchangeService outcomingOutput;
 	private final SecurityService securityService;
 
+	/**
+	 * configureMessageBroker this method enables brokers
+	 * @param MessageBrokerRegistry config 
+	 */
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry config) {
 		config.enableSimpleBroker("/", "/queue");
 		config.setApplicationDestinationPrefixes("/app");
 	}
 
+	/**
+     * registerStompEndPoints Defines an EndPoint for SpringApplication
+     */
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
 		registry.addEndpoint("/slash-and-pair").setAllowedOrigins("*").withSockJS();
 	}
 
+	/**
+     * configureClientInboundChannel before Client send a message, what is caught and is used for authenticate it's sender
+     * @param ChannelRegistration
+     */
 	@Override
 	public void configureClientInboundChannel(ChannelRegistration registration) {
 		registration.setInterceptors(new ChannelInterceptorAdapter() {
 			@Override
+			/**
+	           * preSend caught message and returns it
+	           * @param channel
+	           * @param message
+	           * @return message
+	           */
 			public Message<?> preSend(Message<?> message, MessageChannel channel) {
-				// log.info("Doing clientinboundchannel message
-				// <<<<<<<<<<<<<<<<<< {}", message.toString());
-				// log.info("Doing clientinboundchannel channel?
-				// <<<<<<<<<<<<<<<<<< {}", channel.toString());
 				StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
 				StompCommand command = accessor.getCommand();
-				// log.info("DEBUG METHOD CONFIGURE CLIENT PRESEND1: - {}" ,
-				// accessor.getId());
-				// log.info("DEBUG METHOD CONFIGURE CLIENT PRESEND2: - {}" ,
-				// accessor);
-				// log.info("DEBUG METHOD CONFIGURE CLIENT PRESEND3: - {}" ,
-				// accessor.getDestination());
-				// log.info("DEBUG METHOD CONFIGURE CLIENT PRESEND4: - {}" ,
-				// accessor.getLogin());
-				// log.info("DEBUG METHOD CONFIGURE CLIENT PRESEND5: - {}" ,
-				// accessor.getSessionId());
-				// log.info("DEBUG METHOD CONFIGURE CLIENT PRESEND6: - {}" ,
-				// accessor.getSessionAttributes());
-				// log.info("DEBUG METHOD CONFIGURE CLIENT PRESEND7: - {}" ,
-				// accessor.getUser());
-				// log.info("DEBUG METHOD CONFIGURE CLIENT PRESEND8: - {}" ,
-				// accessor.getSubscriptionId());
 
 				if (StompCommand.CONNECT.equals(command)) {
 					if (accessor.getUser() == null) {
-						// log.info("USER EQUALS NULL - {}" ,
-						// accessor.getUser());
+						log.debug("user id in presend- {}" , accessor.getUser());
 						Principal user = securityService.getAuthentication();
 						accessor.setUser(user);
 					} else {
-						// log.info("FUCKING USER different EQUALS NULL try to
-						// register again or recuperate - {}" ,
-						// accessor.getUser());
+						log.debug("User is authenticated - {}" , accessor.getUser());
 					}
 				}
-				// log.info("DEBUG METHOD CONFIGURE CLIENT message: - " +
-				// message.toString());
-				// log.info("<<<DEBUG METHOD CONFIGURE CLIENT111>>>
-				// getfuckingnameofuserfuckinguser: - {}",
-				// accessor.getUser().getName());
-				// log.info("<<<DEBUG METHOD CONFIGURE CLIENT111>>>
-				// getfuckingnameofuserfuckingmesage!!!!!!!: - {}",
-				// message.getPayload());
 
 				return message;
 			}

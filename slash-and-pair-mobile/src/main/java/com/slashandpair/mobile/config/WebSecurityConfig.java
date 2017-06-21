@@ -6,7 +6,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 /**
- * This class disables the crs token and authorizes any url request
+ * This class disables the csrf token and authorizes any url request
  * 
  * @author Carlos
  * @author Victor

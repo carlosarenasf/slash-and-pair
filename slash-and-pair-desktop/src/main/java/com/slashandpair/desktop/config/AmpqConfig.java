@@ -5,9 +5,9 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * 
- * Class that enable rabbit and configurations. Works with predetermined options 
+ * Class that enable rabbit and configurations. Works with predetermined options
  * 
- * @author Victor 
+ * @author Victor
  * @author Carlos
  * @author Guillermo
  * 
@@ -15,6 +15,5 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableRabbit
 public class AmpqConfig {
-
 
 }

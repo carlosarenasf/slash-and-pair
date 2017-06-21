@@ -29,7 +29,7 @@ public class OutcomingExchangeService {
 	 * @param userId
 	 */
 	public void notifyMobilePaired(String userId) {
-		log.info("OutcomingExchangeService notifyMobilePaired {}", userId);
+		log.debug("OutcomingExchangeService notifyMobilePaired {}", userId);
 		rabbitTemplate.convertAndSend("slash-and-pair-pairing", "pairing", userId);
 	}
 
@@ -41,7 +41,6 @@ public class OutcomingExchangeService {
 	 * @param data
 	 */
 	public void sendMobileContent(String userId, String data) {
-		log.info("sendMobileContent outcomingexchangeservice {}", data);
 		rabbitTemplate.convertAndSend("slash-and-pair-data", "newData", DataConvert.mappingUserAndJson(userId, data));
 	}
 

@@ -59,7 +59,7 @@ Synchronize the mobile session with the desktop through the token
             String userId = pairingTokenOptional.get().getUserId();
             securityService.authenticate(userId);
             outcomingExchangeService.notifyMobilePaired(userId);
-            log.info("PostSynch <<<<<<<<<<<<<<<< {} {}", userId, pairingTokenOptional.toString());
+            log.debug("User synch userId{}, token{}", userId, pairingTokenOptional.toString());
             return "redirect:/exchange";
         } else {
             return "redirect:/tokenError";
@@ -88,7 +88,6 @@ Synchronize the mobile session with the desktop through the token
     @MessageMapping("/dataMobile/gyroscope")
 	public void sendGyroscope(String gyrosJson, Principal principal) throws Exception {
     	GyroscopeData gyros = new GyroscopeData(gyrosJson);
-    	log.debug("sendGyroscope Information: {}", gyros.toString());
     	outcomingExchangeService.sendMobileContent(principal.getName(), gyros.convertDataInJson().toString());
     }
     
