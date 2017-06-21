@@ -72,12 +72,17 @@ function sendSomeDataMobile() {
 }
 
 function setupNoSleep(){
+	runNoSleep();
 	$('#button-no-sleep').on('click', function(){
-		var noSleep = new NoSleep();
-	    noSleep.enable(); // keep the screen on!
+		runNoSleep();
 	});
 	
 	
+}
+
+function runNoSleep(){
+	var noSleep = new NoSleep();
+    noSleep.enable(); // keep the screen on!
 }
 
 $(document).ready(function() {
