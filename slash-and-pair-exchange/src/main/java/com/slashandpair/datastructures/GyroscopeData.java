@@ -4,7 +4,12 @@ import org.json.JSONObject;
 
 import lombok.Data;
 
-
+/**
+ * Pojo for GyroscopeData sensor.
+ * @author Carlos
+ * @author Victor
+ * @author Guillermo
+ */
 @Data
 public class GyroscopeData implements AbstractSensor{
 	private String alpha;

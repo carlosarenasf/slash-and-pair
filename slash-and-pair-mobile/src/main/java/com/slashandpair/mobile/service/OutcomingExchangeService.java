@@ -9,30 +9,40 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Created by guillermoblascojimenez on 08/04/17.
- */
-/*
- aka Mobile => queue => Desktop
+ * This class is responsible for writing data to RabbitMQ queues
+ * 
+ * @author Carlos
+ * @author Victor
+ * @author Guillermo
  */
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class OutcomingExchangeService {
 
-    private final RabbitTemplate rabbitTemplate;
-    private static final String WEB_SOCKET_SEND_DATA_DESTINATION = "/receiveMobileData";
-    private static final String WEB_SOCKET_CONNECTION_SUCCESS_DESTINATION = "/mobileConnectionSuccess";
-    
-    
-    public void notifyMobilePaired(String userId) {
-    	log.info("OutcomingExchangeService notifyMobilePaired {}", userId);
-        rabbitTemplate.convertAndSend("slash-and-pair-pairing", "pairing", userId);
-    }
+	private final RabbitTemplate rabbitTemplate;
 
-    public void sendMobileContent(String userId ,String data) {
-    	//log.info("OutcomingExchangeService sendMobileContent userId {}", userId);
-    	log.info("sendMobileContent outcomingexchangeservice {}", data);
-    	rabbitTemplate.convertAndSend("slash-and-pair-data", "newData", DataConvert.mappingUserAndJson(userId, data));
-    }
+	/**
+	 * This method sends the userId to the queue to notify the user of the
+	 * connection to the desktop.
+	 * 
+	 * @param userId
+	 */
+	public void notifyMobilePaired(String userId) {
+		log.info("OutcomingExchangeService notifyMobilePaired {}", userId);
+		rabbitTemplate.convertAndSend("slash-and-pair-pairing", "pairing", userId);
+	}
+
+	/**
+	 * This method sends information from the sensors data to the queue to
+	 * notify the desktop with the data
+	 * 
+	 * @param userId
+	 * @param data
+	 */
+	public void sendMobileContent(String userId, String data) {
+		log.info("sendMobileContent outcomingexchangeservice {}", data);
+		rabbitTemplate.convertAndSend("slash-and-pair-data", "newData", DataConvert.mappingUserAndJson(userId, data));
+	}
 
 }

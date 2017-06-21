@@ -7,6 +7,12 @@ import org.json.JSONObject;
 
 import lombok.Data;
 
+/**
+ * Pojo for ClickData sensor.
+ * @author Carlos
+ * @author Victor
+ * @author Guillermo
+ */
 @Data
 public class ClickData implements AbstractSensor{
 	

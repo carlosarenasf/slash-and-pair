@@ -6,6 +6,12 @@ import com.slashandpair.datastructures.ClickData;
 import com.slashandpair.datastructures.GyroscopeData;
 import com.slashandpair.datastructures.ObjectData;
 
+/**
+ * This class serializes and deserializes the sensor data.
+ * @author Carlos
+ * @author Victor
+ * @author Guillermo
+ */
 public class DataConvert {
 		
 	public static String mappingUserAndJson(String userId, String json){
