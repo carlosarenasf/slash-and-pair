@@ -33,16 +33,27 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 import lombok.extern.slf4j.Slf4j;
+/**
+ * Class that implements some functionality for generating QR Codes and decode it.
+ * 
+ * @author Victor
+ * @author Carlos
+ * @author Guillermo
+ * 
+ *
+ */
+
 
 @Slf4j
 public class QRUtils {
-	
-//	public static void main(String[] args) throws NotFoundException, ChecksumException, FormatException {
-//		System.out.println("Comienza el main");
-//		generateQRDynamicByParameterString("holi");
-//	}
-	
-	
+	/**
+	 * generateQRDynamicByParameterString Method that gets input with data for codify. It returns base64 image.
+	 * @param identifier Information to codify
+	 * @return String This string corresponds to a base64 image codified ¡.
+	 * @throws NotFoundException
+	 * @throws ChecksumException
+	 * @throws FormatException
+	 */
 	public static String generateQRDynamicByParameterString(String identifier) throws NotFoundException, ChecksumException, FormatException {
 		log.info("El codigo que quieres encriptar es el siguiente {} >>>> ", identifier );
 		String myCodeText = identifier;
@@ -99,7 +110,15 @@ public class QRUtils {
 		System.out.println("\n\nYou have successfully created QR Code.");
 		return null;
 	}
-	
+	/**
+	 * decoderQRCode that decodes an base64 img and return contained information
+	 * @param imgEncoded64
+	 * @param type
+	 * @throws IOException
+	 * @throws NotFoundException
+	 * @throws ChecksumException
+	 * @throws FormatException
+	 */
 	public static void decoderQRCode(String imgEncoded64, String type) throws IOException, NotFoundException, ChecksumException, FormatException{
 		
 		// create a buffered image
