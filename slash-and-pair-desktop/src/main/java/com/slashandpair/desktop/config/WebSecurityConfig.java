@@ -13,7 +13,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 /**
- * Created by guillermoblascojimenez on 08/04/17.
+ * 
+ * @author Victor 
+ * @author Carlos
+ * @author Guillermo
+ * 
  */
 @Configuration
 @EnableWebSecurity

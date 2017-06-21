@@ -4,14 +4,15 @@ import com.slashandpair.datastructures.GyroscopeData;
 import com.slashandpair.exchange.StringContentExchange;
 
 /**
- * Created by guillermoblascojimenez on 08/04/17.
+ * 
+ * Interface class that defines necessary methods to interact with Rabbit
+ * @author Victor 
+ * @author Carlos
+ * @author Guillermo
+ * 
  */
 public interface NotificationService {
 
-    /*
-
-        this.template.convertAndSendToUser("/topic/greetings",new Greeting(text));
-     */
     void notifyNewData(String data);
     void notifyMobileConnected(String user);
 

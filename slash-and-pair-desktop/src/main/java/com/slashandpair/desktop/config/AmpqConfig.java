@@ -4,7 +4,13 @@ import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Created by guillermoblascojimenez on 08/04/17.
+ * 
+ * Class that enable rabbit and configurations. Works with predetermined options 
+ * 
+ * @author Victor 
+ * @author Carlos
+ * @author Guillermo
+ * 
  */
 @Configuration
 @EnableRabbit

@@ -19,24 +19,29 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import java.security.Principal;
 
 /**
- * 
+ * This class enables WebSockets through Spring Application. Contains a bean of securityService 
+ * and several methods that filters connections.
  * @author Victor 
  * @author Carlos
  * @author Guillermo
  * 
  */
 
-//@Configuracion spring lo entiende ocmo que es una clase de configuracion 
+
+
+//Notations
 @Configuration
-//Esta notacion, activa el envio/recepcion de mensajes a traves de websockets.
 @EnableWebSocketMessageBroker
 @Slf4j
 @RequiredArgsConstructor
 public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
-
+	//SecurityService's bean
     private final SecurityService securityService;
 	
-	//Este metodo sobreescribe el metodo predeterminado
+	/**
+	 * configureMessageBroker this method enables brokers
+	 * @param MessageBrokerRegistry config 
+	 */
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
         config.enableSimpleBroker("/user");
@@ -44,14 +49,26 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
         config.setApplicationDestinationPrefixes("/app");
     }
     
+    /**
+     * registerStompEndPoints Defines an EndPoint for SpringApplication
+     */
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/slash-and-pair").setAllowedOrigins("*").withSockJS();
     }
-    
+    /**
+     * configureClientInboundChannel before Client send a message, what is caught and is used for authenticate it's sender
+     * @param ChannelRegistration
+     */
     @Override
     public void configureClientInboundChannel(ChannelRegistration registration) {
       registration.setInterceptors(new ChannelInterceptorAdapter() {
           @Override
+          /**
+           * preSend caught message and returns it
+           * @param channel
+           * @param message
+           * @return message
+           */
           public Message<?> preSend(Message<?> message, MessageChannel channel) {
         	  //log.info("Doing clientinboundchannel message <<<<<<<<<<<<<<<<<< {}", message.toString());
         	  //log.info("Doing clientinboundchannel channel? <<<<<<<<<<<<<<<<<< {}", channel.toString());
@@ -69,6 +86,7 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
               if (StompCommand.CONNECT.equals(command)) {
                   if (accessor.getUser() == null) {
                 	  //log.info("USER EQUALS NULL - {}" , accessor.getUser());
+                	  //Authenticating user
                       Principal user = securityService.getAuthenticationOrCreateNewOne();
                       accessor.setUser(user);
                   }else{

@@ -16,7 +16,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Created by guillermoblascojimenez on 08/04/17.
+ * 
+ * Class that implements listeners that act when callback does by Rabbit
+ * @author Victor 
+ * @author Carlos
+ * @author Guillermo
+ * 
  */
 @Service
 @Slf4j
@@ -36,6 +41,10 @@ public class WebSocketNotificationService implements NotificationService {
             key = "pairing"
         )
     )
+    /**
+     * notifyMobileConnected Method that notify some new user connection from Mobile
+     * @param user Petition origins user 
+     */
     public void notifyMobileConnected(String user) {
     	//log.info("NotifyPAIRING 111 notifyMobileConnected user <<<<<<<<<<<<<<<<<< {}", user);
     	mainapp.getApplicationPage();
@@ -49,7 +58,10 @@ public class WebSocketNotificationService implements NotificationService {
             key = "newData"
         )
     )
-    
+    /**
+     * notifyNewData Method that notify some new data received by Desktop
+     * @param data some information sended by RabbitMQ
+     */
     public void notifyNewData(String data) {
     	ObjectData dataMap = (ObjectData) DataConvert.mappingFromJson(data);
     	log.info("notifyNewData ---- WebSocketNotificationService {}", dataMap.getJson());

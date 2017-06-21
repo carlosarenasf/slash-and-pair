@@ -20,7 +20,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 
+ * Main App that implements all functionalities of Application
+ * Defines end points for receiven messages by client-side
  * @author Victor 
  * @author Carlos
  * @author Guillermo
@@ -36,7 +37,11 @@ public class MainApp {
     
     @Autowired
     private SimpMessagingTemplate template;
-    
+    /**
+     * getIndex returns an html that shows main page of application
+     * @param model 
+     * @return "index" main page of application
+     */
     @GetMapping("/")
     public String getIndex(Model model) {
         PairingToken pairingToken = securityService.generateToken();
@@ -50,7 +55,10 @@ public class MainApp {
         return "index";
     }
     
-        
+    /**
+     * sendCode method, receives petition to generate 4 digits code and returns it to client-side
+     * @param principal Users that do that petition
+     */
     @MessageMapping("/fourCode")
     public void sendCode(Principal principal) {
     	log.info(">>>>>>>>>>> principal name {}", principal.getName());
@@ -63,7 +71,10 @@ public class MainApp {
 			e.printStackTrace();
 		}
     }
-    
+    /**
+     * getApplicationPage do redirects to /game URL
+     * @return
+     */
     public String getApplicationPage(){
     	return "redirect:/game";
     }

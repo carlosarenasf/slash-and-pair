@@ -15,23 +15,33 @@ import java.util.Optional;
 import java.util.Random;
 
 /**
- * Created by guillermoblascojimenez on 08/04/17.
+ * Class that defines security utilities, it goes from generating pairing codes until store it in Redis
+ * @author Victor 
+ * @author Carlos
+ * @author Guillermo
+ * 
  */
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class SecurityService {
 
     private final TokenService tokenService;
-    
+    /**
+     * generateNewUserId that returns random chars string identifier
+     * @return
+     */
     public String generateNewUserId() {
         return RandomStringUtils.randomAlphanumeric(32);
     }
-
+    /**
+     * getAuthenticationOrCreateNewOne this method finds/creates authentication for a new user request
+     * @return authentication
+     * 
+     */
     public Authentication getAuthenticationOrCreateNewOne() {
-    	
         SecurityContext context = SecurityContextHolder.getContext();
-
         Authentication authentication = context.getAuthentication();
         if (authentication == null || "anonymousUser".equals(authentication.getName())) {
             String newUserName = generateNewUserId();
@@ -40,9 +50,10 @@ public class SecurityService {
             context.setAuthentication(authentication);
         }
         return authentication;
-
     }
-
+    /**
+     * generateToken Method that creates token when users requests it
+     */
     public PairingToken generateToken() {
         Authentication authentication = getAuthenticationOrCreateNewOne();
         String userId = authentication.getName();
@@ -54,9 +65,10 @@ public class SecurityService {
         log.info("newtokengeneratedseemore {}", pairingToken.getToken());
         return pairingToken;
     }
-
-    
-    
+	/**
+	 * generateToken4Digits Method that generate 4 digits codes when is requested
+	 * @return pairingToken String of 4 int used for authenticate
+	 */
     public PairingToken generateToken4Digits(String userId){
 		int min = 1000;
 		int max = 9999;
