@@ -237,7 +237,7 @@
 		</dependency>
 
     </dependencies>
-
+	
 
      <properties>
         <java.version>1.8</java.version>
@@ -287,6 +287,14 @@
                         <showDeprecation>true</showDeprecation>
                     </configuration>
                 </plugin>
+                <plugin>
+			    	<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<configuration>
+						<source>1.4</source>
+						<maxmemory>512</maxmemory>
+					</configuration>
+			   </plugin>
             </plugins>
         </pluginManagement>
     </build>
